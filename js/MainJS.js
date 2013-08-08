@@ -1,6 +1,5 @@
 // Matthew Ashton
-// VFW Project 4
-// VFW 1306
+// MUI 1308 Project 1
 // JavaScript 
 
 
