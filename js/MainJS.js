@@ -76,19 +76,32 @@ window.addEventListener("DOMContentLoaded", function(){
         localStorage.setItem(ID, JSON.stringify(item));
         alert("Game Saved!");
     }
+    
+       function imageSelector(imgName, makeSubList) {
+        var imageLi = document.createElement("li");
+        makeSubList.appendChild(imageLi);
+        var newImage = document.createElement("img");
+        var setSource = newImage.setAttribute("src", "img/"+ imgName + ".png");
+        imageLi.appendChild(newImage);
+        newImage.style.margin = "5px";
+        newImage.style.padding = "2px";
+    }
+    
+    
     // This is the function for getting the stuff from local storage and displaying it as a list
     function getStuff(){
+        document.getElementById("items").innerHTML="";
         togglePage("on");
         if (localStorage.length === 0) {
-            alert("There is no data available, default data is shown.")
+            alert("There is no data available, default data is shown.");
             testDataLoaded ();
         }
-        var makeStuff = document.createElement("div");
-        makeStuff.setAttribute("ID", "items");
+        var makeStuff = document.getElementById("items");
+        //makeStuff.setAttribute("ID", "items");
         var makeListOfStuff = document.createElement("ul");
         makeStuff.appendChild(makeListOfStuff);
-        document.body.appendChild(makeStuff);
-        easy("items").style.display = "block";
+        //document.body.appendChild(makeStuff);
+        easy("items").style.display = "inline";
         for (var i=0, len=localStorage.length; i<len; i++) {
             var createList = document.createElement("li");
             var linksLi = document.createElement("li");
@@ -110,20 +123,6 @@ window.addEventListener("DOMContentLoaded", function(){
             createEditItemLinks(localStorage.key(i), linksLi);
         }
     }
-    
-    
-    function imageSelector(imgName, makeSubList) {
-        var imageLi = document.createElement("li");
-        makeSubList.appendChild(imageLi);
-        var newImage = document.createElement("img");
-        var setSource = newImage.setAttribute("src", "img/"+ imgName + ".png");
-        imageLi.appendChild(newImage);
-        newImage.style.border = "2px solid #B22222";
-        newImage.style.outline = "double #B22222";
-        newImage.style.margin = "5px";
-        newImage.style.padding = "2px";
-    }
-    
     
     function testDataLoaded(){
         for (var n in jsonObject) {
@@ -157,7 +156,6 @@ window.addEventListener("DOMContentLoaded", function(){
     function editGameEntry() {
         var value = localStorage.getItem(this.key);
         var entry = JSON.parse(value);
-        
         togglePage("off");
         
         easy("gameName").value = entry.gameName[1];
@@ -188,10 +186,10 @@ window.addEventListener("DOMContentLoaded", function(){
     function deleteGameEntry() {
         var ask = confirm("Are you absolutely sure you want to delete this game?");
         if (ask) {
-            localStorage.removeItem(this.key)
+            localStorage.removeItem(this.key);
             window.location.reload();
         }else{
-            alert("Game was NOT deleted!")
+            alert("Game was NOT deleted!");
         }
     }
     
